@@ -1,0 +1,77 @@
+Para que el botón de **Google Pay** que ya tienes en `Listadeprecios` pueda **recibir pagos reales**, hay que cumplir varios trámites y configuraciones con Google y tu pasarela de pago.
+Te lo organizo en pasos concretos:
+
+---
+
+## **1️⃣ Tener una cuenta de comerciante**
+
+* Necesitas una **cuenta de Google Pay Business** (Google Pay Merchant).
+* Se crea en: [https://pay.google.com/business/console](https://pay.google.com/business/console)
+* Allí te darán un **Merchant ID** oficial (reemplaza el que tienes `"01234567890123456789"`).
+
+---
+
+## **2️⃣ Configurar tu pasarela de pago**
+
+Google Pay **no procesa pagos por sí mismo**: envía la información a un *gateway* como:
+
+* Stripe
+* PayU
+* Mercado Pago
+* Adyen
+
+Debes:
+
+* Crear cuenta en la pasarela elegida.
+* Habilitar Google Pay en esa pasarela.
+* Obtener las credenciales (`gateway`, `gatewayMerchantId`) que irán en tu código.
+
+---
+
+## **3️⃣ Verificar dominio con Google**
+
+Google exige que verifiques que eres dueño del dominio donde usarás el botón:
+
+* Subir un archivo de verificación a tu hosting (Google te lo da en la consola de Google Pay).
+* Esto habilita pagos en tu sitio real (no en localhost).
+
+---
+
+## **4️⃣ Cambiar el entorno de TEST a PRODUCTION**
+
+En tu código:
+
+```js
+environment: "PRODUCTION"
+```
+
+Esto ya enviará pagos reales. Antes de eso debes probar en `TEST` y pasar las validaciones de Google.
+
+---
+
+## **5️⃣ Cumplir políticas de Google Pay**
+
+* Política de devoluciones clara.
+* Sitio seguro con **HTTPS**.
+* Mostrar precios en moneda local.
+* No usar Google Pay para productos prohibidos.
+
+---
+
+## **6️⃣ Certificación de integración (opcional pero recomendado)**
+
+Google puede pedir que envíes capturas o acceso para verificar que la integración funciona correctamente antes de permitir producción.
+
+---
+
+📌 **En resumen**:
+
+1. Crear cuenta Google Pay Business y obtener `merchantId`.
+2. Configurar pasarela de pago compatible y conectar credenciales.
+3. Verificar dominio con Google.
+4. Cambiar código a `PRODUCTION` y probar.
+
+---
+
+Si quieres, puedo prepararte **el código modificado de tu `Listadeprecios`** listo para producción con los campos reales que se completan después de esos trámites.
+¿Quieres que lo deje ya adaptado para eso?
